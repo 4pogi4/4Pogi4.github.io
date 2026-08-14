@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Calculator - Mutual Fund Returns - Pogi Tools</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; max-width: 600px; margin: auto; }
+h1 { text-align: center; color: #2c3e50; }
+.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+label { display: block; margin-top: 15px; font-weight: bold; }
+input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+button { width: 100%; padding: 12px; margin-top: 20px; background: #27ae60; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
+button:hover { background: #219150; }
+.result { margin-top: 20px; padding: 15px; background: #eaf1; border-radius: 8px; display: none; }
+.result h3 { margin: 5px 0; color: #27ae60; }
+.grid-result { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.box { background: white; padding: 10px; border-radius: 8px; text-align: center; }
+.box span { font-size: 18px; font-weight: bold; color: #2c3e50; }
+.note { font-size: 12px; color: #777; margin-top: 15px; }
+.back { display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #2c3e50; }
+</style>
+</head>
+<body>
+
+<h1>SIP Calculator</h1>
+<div class="card">
+  <label>Monthly Investment ₹</label>
+  <input type="number" id="sip" placeholder="e.g. 5000" value="5000">
+
+  <label>Expected Return % per Year</label>
+  <input type="number" id="rate" placeholder="e.g. 12" step="0.1" value="12">
+
+  <label>Time Period in Years</label>
+  <input type="number" id="years" placeholder="e.g. 10" value="10">
+
+  <button onclick="calculateSIP()">Calculate</button>
+
+  <div class="result" id="resultBox">
+    <div class="grid-result">
+      <div class="box">
+        Invested Amount<br><span>₹<span id="invested"></span></span>
+      </div>
+      <div class="box">
+        Est. Returns<br><span>₹<span id="returns"></span></span>
+      </div>
+    </div>
+    <h3 style="text-align:center; margin-top:15px;">Total Value: ₹<span id="total"></span></h3>
+  </div>
+  <p class="note">*This is an estimate. Mutual funds are subject to market risk. Returns not guaranteed.</p>
+</div>
+
+<a href="/" class="back">← Back to Home</a>
+
+<script>
+function calculateSIP() {
+  let P = parseFloat(document.getElementById('sip').value); // Monthly SIP
+  let R = parseFloat(document.getElementById('rate').value) / 100 / 12; // Monthly rate
+  let N = parseFloat(document.getElementById('years').value) * 12; // Total months
+
+  if(!P || !R || !N) { alert("Please fill all fields"); return; }
+
+  // SIP Formula: FV = P * [((1+R)^N - 1) / R] * (1+R)
+  let fv = P * ((Math.pow(1 + R, N) - 1) / R) * (1 + R);
+  let invested = P * N;
+  let returns = fv - invested;
+
+  document.getElementById('invested').innerText = invested.toFixed(0).toLocaleString('en-IN');
+  document.getElementById('returns').innerText = returns.toFixed(0).toLocaleString('en-IN');
+  document.getElementById('total').innerText = fv.toFixed(0).toLocaleString('en-IN');
+  document.getElementById('resultBox').style.display = 'block';
+}
+
+// Run on load with default values
+calculateSIP();
+</script>
+
+</body>
+                             </html>
