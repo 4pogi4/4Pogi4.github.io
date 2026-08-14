@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Calculator - Pogi Tools</title>
+    <style>
+        body{font-family:Arial,sans-serif;max-width:500px;margin:30px auto;padding:20px;background:#f5f5f5}
+        .card{background:white;padding:25px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+        h1{color:#2c3e50;text-align:center;font-size:24px}
+        label{display:block;margin-top:15px;font-weight:bold;color:#555}
+        input,select{width:100%;padding:12px;margin-top:5px;border:2px solid #ddd;border-radius:5px;font-size:16px;box-sizing:border-box}
+        button{width:100%;background:#e74c3c;color:white;padding:15px;border:none;border-radius:5px;font-size:18px;margin-top:20px;cursor:pointer}
+        button:hover{background:#c0392b}
+        .result{background:#d5f4e6;padding:15px;border-radius:5px;margin-top:20px;font-size:18px}
+        .back{display:block;text-align:center;margin-top:20px;color:#27ae60;text-decoration:none}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🧾 GST Calculator</h1>
+        
+        <label>Original Amount (₹)</label>
+        <input type="number" id="amount" placeholder="1000" value="1000">
+        
+        <label>GST Rate (%)</label>
+        <select id="gst">
+            <option value="5">5%</option>
+            <option value="12">12%</option>
+            <option value="18" selected>18%</option>
+            <option value="28">28%</option>
+        </select>
+        
+        <button onclick="calculateGST()">Calculate GST</button>
+        
+        <div class="result" id="result"></div>
+        
+        <a href="/" class="back">← Back to Home</a>
+    </div>
+
+    <script>
+        function calculateGST() {
+            let amount = parseFloat(document.getElementById('amount').value);
+            let gstRate = parseFloat(document.getElementById('gst').value);
+            let gstAmount = (amount * gstRate) / 100;
+            let totalAmount = amount + gstAmount;
+            
+            document.getElementById('result').innerHTML = 
+                `<b>Original Amount:</b> ₹${amount.toFixed(2)}<br>
+                 <b>GST (${gstRate}%):</b> ₹${gstAmount.toFixed(2)}<br>
+                 <b>Total Amount:</b> ₹${totalAmount.toFixed(2)}`;
+        }
+        calculateGST(); // Run once on load
+    </script>
+</body>
+  </html>
