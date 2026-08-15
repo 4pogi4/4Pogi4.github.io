@@ -52,4 +52,43 @@ const units = {
 function loadUnits() {
   let from = document.getElementById('from');
   let to = document.getElementById('to');
-  from.inner
+  from.innerHTML = '';
+  to.innerHTML = '';
+  
+  units.name.forEach((u, i) => {
+    from.innerHTML += `<option value="${i}">${u}</option>`;
+    to.innerHTML += `<option value="${i}">${u}</option>`;
+  });
+  from.selectedIndex = 2; // kg
+  to.selectedIndex = 5; // pound
+}
+
+function convert() {
+  let val = parseFloat(document.getElementById('value').value);
+  let from = parseInt(document.getElementById('from').value);
+  let to = parseInt(document.getElementById('to').value);
+  
+  if(isNaN(val)) return;
+  
+  let inKg = val * units.toKg[from];
+  let result = inKg / units.toKg[to];
+
+  document.getElementById('resultBox').innerText = 
+    `${val} ${units.name[from]} = ${result.toFixed(4)} ${units.name[to]}`;
+}
+
+function quick(val, fromUnit, toUnit) {
+  document.getElementById('value').value = val;
+  document.getElementById('from').value = units.name.indexOf(fromUnit);
+  document.getElementById('to').value = units.name.indexOf(toUnit);
+  convert();
+}
+
+// THE FIX: Wait for page to load before running
+window.onload = function() {
+  loadUnits();
+  convert();
+};
+</script>
+
+</body>
