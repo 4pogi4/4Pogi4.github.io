@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FD Calculator - Fixed Deposit Interest - Pogi Tools</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; max-width: 600px; margin: auto; }
+h1 { text-align: center; color: #2c3e50; }
+.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+label { display: block; margin-top: 15px; font-weight: bold; }
+input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+button { width: 100%; padding: 12px; margin-top: 20px; background: #27ae60; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
+button:hover { background: #219150; }
+.result { margin-top: 20px; padding: 15px; background: #eaf1; border-radius: 8px; display: none; }
+.grid-result { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.box { background: white; padding: 10px; border-radius: 8px; text-align: center; }
+.box span { font-size: 18px; font-weight: bold; color: #2c3e50; }
+.note { font-size: 12px; color: #777; margin-top: 15px; }
+.back { display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #2c3e50; }
+</style>
+</head>
+<body>
+
+<h1>FD Calculator</h1>
+<div class="card">
+  <label>Principal Amount ₹</label>
+  <input type="number" id="principal" placeholder="e.g. 500000" value="500000">
+
+  <label>Interest Rate % per Year</label>
+  <input type="number" id="rate" placeholder="e.g. 7" step="0.1" value="7">
+
+  <label>Time Period in Years</label>
+  <input type="number" id="years" placeholder="e.g. 5" value="5">
+
+  <button onclick="calculateFD()">Calculate</button>
+
+  <div class="result" id="resultBox">
+    <div class="grid-result">
+      <div class="box">
+        Invested Amount<br><span>₹<span id="invested"></span></span>
+      </div>
+      <div class="box">
+        Interest Earned<br><span>₹<span id="interest"></span></span>
+      </div>
+    </div>
+    <h3 style="text-align:center; margin-top:15px;">Maturity Amount: ₹<span id="total"></span></h3>
+  </div>
+  <p class="note">*Formula: A = P(1 + r/100)^n. Rates vary by bank.</p>
+</div>
+
+<a href="/" class="back">← Back to Home</a>
+
+<script>
+function calculateFD() {
+  let P = parseFloat(document.getElementById('principal').value);
+  let R = parseFloat(document.getElementById('rate').value) / 100;
+  let N = parseFloat(document.getElementById('years').value);
+
+  if(!P || !R || !N) { alert("Please fill all fields"); return; }
+
+  let A = P * Math.pow((1 + R), N); // Compound Interest
+  let interest = A - P;
+
+  document.getElementById('invested').innerText = P.toLocaleString('en-IN');
+  document.getElementById('interest').innerText = interest.toFixed(0).toLocaleString('en-IN');
+  document.getElementById('total').innerText = A.toFixed(0).toLocaleString('en-IN');
+  document.getElementById('resultBox').style.display = 'block';
+}
+
+calculateFD();
+</script>
+
+</body>
+  </html>
