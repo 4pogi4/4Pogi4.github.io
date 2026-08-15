@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Temperature Converter - C to F to K - Pogi Tools</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; max-width: 500px; margin: auto; }
+h1 { text-align: center; color: #2c3e50; }
+.card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+label { display: block; margin-top: 15px; font-weight: bold; }
+input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+.result { margin-top: 20px; padding: 20px; background: #ffeaa7; border-radius: 8px; text-align: center; }
+.result h2 { margin: 0; font-size: 28px; color: #d63031; }
+.result p { margin: 5px 0; font-size: 16px; }
+.common { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 15px; }
+.common-btn { padding: 10px; background: #74b9ff; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: bold; }
+.common-btn:hover { background: #0984e3; }
+.note { font-size: 12px; color: #777; margin-top: 15px; text-align: center; }
+.back { display: block; text-align: center; margin-top: 20px; text-decoration: none; color: #2c3e50; }
+</style>
+</head>
+<body>
+
+<h1>Temperature Converter</h1>
+<div class="card">
+  <label>Value</label>
+  <input type="number" id="value" placeholder="Enter temperature" value="37" oninput="convert()">
+
+  <label>From</label>
+  <select id="from" onchange="convert()">
+    <option value="C">Celsius °C</option>
+    <option value="F">Fahrenheit °F</option>
+    <option value="K">Kelvin K</option>
+  </select>
+
+  <label>To</label>
+  <select id="to" onchange="convert()">
+    <option value="F">Fahrenheit °F</option>
+    <option value="C">Celsius °C</option>
+    <option value="K">Kelvin K</option>
+  </select>
+
+  <div class="result" id="resultBox">
+    <h2 id="mainResult"></h2>
+    <p id="allResults"></p>
+  </div>
+
+  <div class="common">
+    <button class="common-btn" onclick="quick(37, 'C', 'F')">37°C to °F</button>
+    <button class="common-btn" onclick="quick(98.6, 'F', 'C')">98.6°F to °C</button>
+    <button class="common-btn" onclick="quick(0, 'C', 'F')">0°C to °F</button>
+    <button class="common-btn" onclick="quick(100, 'C', 'F')">100°C to °F</button>
+  </div>
+  <p class="note">Normal Body Temp: 37°C / 98.6°F</p>
+      </div>
